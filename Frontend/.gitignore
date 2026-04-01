@@ -22,3 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+node_modules/
+.env
+.env.*
+.DS_Store
+Thumbs.db
+.vscode/
+coverage/
+dist/
+build/
+*.local
+tests/
+
