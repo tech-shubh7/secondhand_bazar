@@ -1,0 +1,432 @@
+// ============================================================
+// PRODUCTION SCHEMA — SECOND HAND BAZAAR
+// Stack: Node.js + Express + Prisma + MySQL
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OAuthProvider {
+  GOOGLE
+  GITHUB
+  FACEBOOK
+}
+
+enum ProductCondition {
+  NEW
+  LIKE_NEW
+  USED
+}
+
+enum ProductStatus {
+  AVAILABLE
+  RESERVED
+  SOLD
+  BLOCKED
+}
+
+enum ProductMode {
+  SELL
+  RENT
+}
+
+enum ReportStatus {
+  PENDING
+  REVIEWED
+  RESOLVED
+  REJECTED
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  CANCELLED
+  COMPLETED
+}
+
+enum NotificationType {
+  NEW_REQUEST
+  REQUEST_ACCEPTED
+  REQUEST_REJECTED
+  REQUEST_CANCELLED
+  REQUEST_COMPLETED
+  PRODUCT_SOLD
+  SYSTEM
+}
+
+// ============================================================
+// USER — Auth & Identity only
+// ============================================================
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String  @db.VarChar(60)
+  email    String  @unique @db.VarChar(100)
+  password String? @db.VarChar(255) // nullable — OAuth users have no password
+  phone    String? @unique @db.VarChar(20)
+
+  city      String? @db.VarChar(100)
+  state     String? @db.VarChar(100)
+  latitude  Float?
+  longitude Float?
+
+  role        Role      @default(USER)
+  isActive    Boolean   @default(true) @map("is_active")
+  isVerified  Boolean   @default(false) @map("is_verified")
+  lastLoginAt DateTime? @map("last_login_at")
+
+  // Relations
+  profile       UserProfile?
+  oauthAccounts OAuthAccount[]
+  refreshTokens RefreshToken[]
+
+  products       Product[]
+  favorites      Favorite[]
+  reports        Report[]
+  notifications  Notification[]
+  buyerRequests  Request[]      @relation("BuyerRequests")
+  sellerRequests Request[]      @relation("SellerRequests")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@index([city])
+  @@index([deletedAt])
+  @@index([isActive, deletedAt])
+  @@index([latitude, longitude])
+  @@map("users")
+}
+
+// ============================================================
+// USER PROFILE — Public facing info, separated from auth
+// ============================================================
+
+model UserProfile {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+
+  bio          String? @db.VarChar(500)
+  profileImage String? @map("profile_image") @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user_profiles")
+}
+
+// ============================================================
+// OAUTH ACCOUNT — Supports multiple OAuth providers per user
+// ============================================================
+
+model OAuthAccount {
+  id     Int  @id @default(autoincrement())
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+
+  provider   OAuthProvider
+  providerId String        @map("provider_id") @db.VarChar(255)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([provider, providerId])
+  @@index([userId])
+  @@map("oauth_accounts")
+}
+
+// ============================================================
+// REFRESH TOKEN — One row per device/session
+// ============================================================
+
+model RefreshToken {
+  id     Int  @id @default(autoincrement())
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+
+  token     String    @unique @db.VarChar(512)
+  expiresAt DateTime  @map("expires_at")
+  revokedAt DateTime? @map("revoked_at") // null = valid, set = logged out / revoked
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([token])
+  @@map("refresh_tokens")
+}
+
+// ============================================================
+// CATEGORY — Hierarchical with depth guard
+// ============================================================
+
+model Category {
+  id   Int     @id @default(autoincrement())
+  name String  @unique @db.VarChar(100)
+  slug String  @unique @db.VarChar(120)
+  icon String? @db.VarChar(255)
+
+  parentId Int?       @map("parent_id")
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+
+  depth    Int     @default(0) // max 2 enforced at app layer: root → sub → leaf
+  isActive Boolean @default(true) @map("is_active")
+
+  products Product[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@index([parentId])
+  @@index([isActive])
+  @@map("categories")
+}
+
+// ============================================================
+// PRODUCT — Core listing fields only
+// ============================================================
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(150)
+  description String   @db.Text
+  price       Decimal? @db.Decimal(10, 2)
+  slug        String   @unique @db.VarChar(200)
+
+  condition ProductCondition
+  status    ProductStatus    @default(AVAILABLE)
+  mode      ProductMode
+
+  isActive     Boolean @default(true) @map("is_active")
+  isNegotiable Boolean @default(true) @map("is_negotiable")
+  views        Int     @default(0)
+
+  // Product's own location — independent from seller address
+  // A seller in Ahmedabad can list an item physically located in Surat
+  city      String? @db.VarChar(100)
+  state     String? @db.VarChar(100)
+  latitude  Float?
+  longitude Float?
+
+  sellerId Int  @map("seller_id")
+  seller   User @relation(fields: [sellerId], references: [id])
+
+  categoryId Int      @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  // Relations
+  rentalDetail  ProductRentalDetail?
+  images        ProductImage[]
+  favorites     Favorite[]
+  reports       Report[]
+  requests      Request[]
+  notifications Notification[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  expiresAt DateTime? @map("expires_at")
+
+  @@index([sellerId])
+  @@index([city])
+  @@index([status])
+  @@index([mode])
+  @@index([condition])
+  @@index([categoryId])
+  @@index([price])
+  @@index([createdAt])
+  @@index([deletedAt])
+  @@index([expiresAt])
+  @@index([latitude, longitude])
+  @@index([sellerId, status])
+  @@index([categoryId, price])
+  @@index([categoryId, createdAt])
+  @@index([isActive, deletedAt])
+  @@map("products")
+}
+
+// ============================================================
+// PRODUCT RENTAL DETAIL — Only exists when Product.mode = RENT
+// ============================================================
+
+model ProductRentalDetail {
+  id        Int     @id @default(autoincrement())
+  productId Int     @unique @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  rentalDurationDays Int       @map("rental_duration_days")
+  rentalPricePerDay  Decimal   @map("rental_price_per_day") @db.Decimal(10, 2)
+  availableFrom      DateTime  @map("available_from")
+  availableTo        DateTime? @map("available_to")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("product_rental_details")
+}
+
+// ============================================================
+// PRODUCT IMAGE
+// ============================================================
+
+model ProductImage {
+  id        Int     @id @default(autoincrement())
+  productId Int     @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  url       String  @db.VarChar(500)
+  isPrimary Boolean @default(false) @map("is_primary")
+  order     Int?
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@index([productId])
+  @@index([productId, isPrimary])
+  @@map("product_images")
+}
+
+// ============================================================
+// FAVORITE
+// ============================================================
+
+model Favorite {
+  id        Int @id @default(autoincrement())
+  userId    Int @map("user_id")
+  productId Int @map("product_id")
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
+  @@map("favorites")
+}
+
+// ============================================================
+// REPORT
+// ============================================================
+
+model Report {
+  id        Int @id @default(autoincrement())
+  userId    Int @map("user_id")
+  productId Int @map("product_id")
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  reason    String       @db.VarChar(500)
+  adminNote String?      @map("admin_note") @db.VarChar(500)
+  status    ReportStatus @default(PENDING)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@index([userId])
+  @@index([productId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("reports")
+}
+
+// ============================================================
+// REQUEST — Buyer sends to seller for a product
+// ============================================================
+
+model Request {
+  id        Int     @id @default(autoincrement())
+  productId Int     @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  buyerId Int  @map("buyer_id")
+  buyer   User @relation("BuyerRequests", fields: [buyerId], references: [id])
+
+  sellerId Int  @map("seller_id")
+  seller   User @relation("SellerRequests", fields: [sellerId], references: [id])
+
+  offeredPrice Decimal? @map("offered_price") @db.Decimal(10, 2)
+  finalPrice   Decimal? @map("final_price") @db.Decimal(10, 2)
+  message      String?  @db.VarChar(500)
+
+  status RequestStatus @default(PENDING)
+
+  // RENT only — overlap check enforced at app layer
+  startDate DateTime? @map("start_date")
+  endDate   DateTime? @map("end_date")
+
+  notifications Notification[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  expiresAt DateTime? @map("expires_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  // No @@unique — handled at app layer
+  // SELL: one active PENDING request per buyer+product checked in service
+  // RENT: no overlapping startDate+endDate per product checked in service
+  @@index([productId])
+  @@index([buyerId])
+  @@index([sellerId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([deletedAt])
+  @@index([buyerId, productId])
+  @@index([sellerId, status])
+  @@map("requests")
+}
+
+// ============================================================
+// NOTIFICATION
+// ============================================================
+
+model Notification {
+  id     Int  @id @default(autoincrement())
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+
+  type    NotificationType
+  title   String           @db.VarChar(150)
+  message String           @db.VarChar(500)
+
+  isRead Boolean @default(false) @map("is_read")
+
+  // Optional context — set based on notification type at app layer
+  productId Int?     @map("product_id")
+  requestId Int?     @map("request_id")
+  product   Product? @relation(fields: [productId], references: [id])
+  request   Request? @relation(fields: [requestId], references: [id])
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  deletedAt DateTime? @map("deleted_at")
+  expiresAt DateTime? @map("expires_at")
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+  @@index([deletedAt])
+  @@index([userId, isRead])
+  @@map("notifications")
+}
