@@ -143,7 +143,7 @@ function SignupPage() {
               </div>
             </div>
             {/* <!-- Social Logins --> */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid text-white grid-cols-2 gap-4">
               <button className="flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-shb-border bg-shb-card hover:bg-slate-800 transition-all text-sm font-medium">
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path

@@ -36,7 +36,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="bg-surface-dark p-8 rounded-xl border border-border-dark shadow-2xl">
+    <div className="bg-slate-950 p-8 rounded-xl border border-border-dark shadow-2xl">
       {error && (
         <div className="p-3 mb-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
           {error}
@@ -117,16 +117,17 @@ function LoginForm() {
           {loading ? "Loging in..." : "Login"}
         </button>
 
-        {/* Divider */}
-        <div className="relative my-3">
+        {/* <!-- Divider --> */}
+        <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border border-dark"></div>
+            <div className="w-full border-t border-shb-border"></div>
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className=" px-3 text-slate-3 font-medium">Or join with</span>
+            <span className="px-4 text-slate-300 tracking-widest font-medium">
+              Or join with
+            </span>
           </div>
         </div>
-
         {/* Social Logins */}
         <div className="grid grid-cols-2 gap-4">
           <button
@@ -157,10 +158,8 @@ function LoginForm() {
             className="flex items-center justify-center gap-2.5 py-2.5 px-4 bg-background-dark border border-border-dark rounded-lg hover:bg-slate-800 transition-colors text-sm font-medium text-slate-300"
             type="button"
           >
-            <svg className="size-5 fill-current text-white" viewBox="0 0 24 24">
-              <path d="M17.05 20.28c-.96.95-2.04 1.44-3.23 1.44-1.23 0-2.34-.45-3.34-1.44-1-.96-1.5-2.08-1.5-3.34s.5-2.38 1.5-3.34c1-.95 2.11-1.44 3.34-1.44 1.19 0 2.27.49 3.23 1.44.96.96 1.44 2.08 1.44 3.34s-.48 2.38-1.44 3.34zM12.03 2c-.67 0-1.21.54-1.21 1.21s.54 1.21 1.21 1.21 1.21-.54 1.21-1.21-.54-1.21-1.21-1.21z"></path>
-              <path d="M12.03 7.25c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path>
-              <path d="M17.5 12.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5z"></path>
+            <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+              <path d="M17.05 20.28c-.96.95-2.05 1.9-3.3 1.9-1.25 0-1.62-.77-3.1-.77-1.48 0-1.9.75-3.1.77-1.2.02-2.45-1.05-3.42-2.42-2-2.82-3.53-7.95-1.48-11.5 1.02-1.77 2.85-2.9 4.83-2.93 1.52-.03 2.95 1.02 3.88 1.02s2.72-1.27 4.55-1.08c.77.03 2.93.3 4.32 2.33-.12.07-2.58 1.5-2.55 4.5.03 3.6 3.12 4.82 3.15 4.83-.02.08-.5 1.7-1.65 3.35zM12.03 5.07c.85-1.02 1.4-2.45 1.25-3.87-1.22.05-2.7 0.82-3.58 1.85-.78.9-1.47 2.37-1.28 3.75 1.35.1 2.75-.72 3.6-1.73z"></path>
             </svg>
             Apple
           </button>

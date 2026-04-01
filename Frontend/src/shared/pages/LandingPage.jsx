@@ -9,7 +9,9 @@ const LandingPage = () => {
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center size-10 rounded-full bg-primary text-white">
-                <span className="material-symbols-outlined text-2xl">sync_alt</span>
+                <span className="material-symbols-outlined text-2xl">
+                  sync_alt
+                </span>
               </div>
               <h2 className="text-xl font-extrabold tracking-tight text-slate-100">
                 SecondHand <span className="text-primary">Bazar</span>
@@ -32,7 +34,7 @@ const LandingPage = () => {
                 className="text-sm font-medium text-slate-400 hover:text-primary transition-colors"
                 href="#"
               >
-                Exchange
+                Requests
               </a>
               <a
                 className="text-sm font-medium text-slate-400 hover:text-primary transition-colors"
@@ -42,16 +44,18 @@ const LandingPage = () => {
               </a>
             </nav>
             <div className="flex items-center gap-4">
-              <button className="hidden sm:flex items-center justify-center px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
-                List an Item
-              </button>
-              <div className="size-10 rounded-full bg-surface-dark border border-slate-800 flex items-center justify-center cursor-pointer overflow-hidden">
-                <img
-                  alt="User avatar"
-                  data-alt="Abstract circular user profile avatar"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHtJ_iTf_t-ERR4Gke82I9f_qswjGuJipM5Grf_VFin4yIYok088qSh62v5lwF7kpqB4Qk4g2CpULBpjB_qDq2U6JauZZNUmjhlvcqB6lMu2trDDE_zUxfAlVIfLFehCIUML8anqAbwOhgo7MP1wuuC6hhL2uTHBxFiSAhgPi4lcoehq85bLM6j5Oke3f4jvVDD5JljYnZBkD4sxjYDJp3o3LPWkGRlcj5KHlz3AsjvxFwH3Jya5luVrU_5i6ZrrBdCVNh4dzoW-Dm"
-                />
-              </div>
+              <a
+                href="/login"
+                className="hidden sm:flex items-center justify-center px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+              >
+                Login
+              </a>
+              <a
+                href="/signup"
+                className="hidden sm:flex items-center justify-center px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+              >
+                Sign Up
+              </a>
             </div>
           </div>
         </header>
@@ -60,59 +64,124 @@ const LandingPage = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(79,125,243,0.08),transparent_70%)]"></div>
           <div className="max-w-7xl mx-auto px-6 lg:px-20 relative z-10 text-center">
             <h1 className="text-5xl lg:text-7xl font-black tracking-tight mb-8 leading-[1.1]">
-              Find what you need <br />
+              Buy, sell, and rent <br />
               <span className="text-primary">nearby</span>
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-16 leading-relaxed">
-              The premium marketplace for pre-loved goods and sustainable
-              exchange. Join a community built on trust and longevity.
+              A local marketplace for second-hand products where users can list
+              items, send requests, negotiate offers, and complete sales or
+              rentals.
             </p>
             <div className="max-w-3xl mx-auto">
-              {/* <!-- Prominent Central Search Bar --> */}
-              <div className="group relative flex items-center p-2 rounded-2xl bg-surface-dark/40 border border-slate-800 focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10 transition-all duration-300 shadow-2xl">
-                <div className="flex-1 flex items-center px-5">
-                  <span className="material-symbols-outlined text-slate-500 mr-3 group-focus-within:text-primary transition-colors">
-                    search
+              <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+                <a
+                  href="/signup"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-primary text-white font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+                >
+                  Start Selling
+                  <span className="material-symbols-outlined text-xl">
+                    arrow_right_alt
                   </span>
-                  <input
-                    className="w-full bg-transparent border-none focus:ring-0 text-slate-100 placeholder:text-slate-500 py-4 text-lg"
-                    placeholder="Search electronics, furniture, or books..."
-                    type="text"
-                  />
-                </div>
-                <button className="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
-                  Search
-                </button>
+                </a>
+                <a
+                  href="/login"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-surface-dark text-slate-100 font-bold border border-slate-800 hover:border-primary/30 hover:text-primary transition-all"
+                >
+                  See What’s New
+                  <span className="material-symbols-outlined text-xl">
+                    storefront
+                  </span>
+                </a>
               </div>
-              <div className="mt-8 flex flex-wrap justify-center items-center gap-4">
-                <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">
-                  Popular:
-                </span>
-                <a
-                  className="px-3 py-1.5 rounded-full bg-surface-dark border border-slate-800 text-xs font-semibold text-slate-400 hover:text-primary hover:border-primary/30 transition-all"
-                  href="#"
-                >
-                  #MacBookPro
-                </a>
-                <a
-                  className="px-3 py-1.5 rounded-full bg-surface-dark border border-slate-800 text-xs font-semibold text-slate-400 hover:text-primary hover:border-primary/30 transition-all"
-                  href="#"
-                >
-                  #VintageSofa
-                </a>
-                <a
-                  className="px-3 py-1.5 rounded-full bg-surface-dark border border-slate-800 text-xs font-semibold text-slate-400 hover:text-primary hover:border-primary/30 transition-all"
-                  href="#"
-                >
-                  #RoadBikes
-                </a>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left sm:text-center">
+                <div className="rounded-xl border border-slate-800 bg-surface-dark/50 px-5 py-4">
+                  <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
+                    Product Modes
+                  </p>
+                  <p className="text-sm font-semibold text-slate-100">
+                    Sell and Rent
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-800 bg-surface-dark/50 px-5 py-4">
+                  <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
+                    Transaction Flow
+                  </p>
+                  <p className="text-sm font-semibold text-slate-100">
+                    Request, negotiate, complete
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-800 bg-surface-dark/50 px-5 py-4">
+                  <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
+                    Discovery
+                  </p>
+                  <p className="text-sm font-semibold text-slate-100">
+                    Category and city based
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
+
+        {/* <!-- Marketplace Stats Strip --> */}
+        <section className="w-full py-10">
+          <div className="max-w-7xl mx-auto px-6 lg:px-20">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="rounded-2xl border border-slate-800 bg-surface-dark/60 px-6 py-5">
+                <p className="text-2xl lg:text-3xl font-black text-slate-100">
+                  10k+
+                </p>
+                <p className="text-sm text-slate-400 mt-1">Active Listings</p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-surface-dark/60 px-6 py-5">
+                <p className="text-2xl lg:text-3xl font-black text-slate-100">
+                  120+
+                </p>
+                <p className="text-sm text-slate-400 mt-1">Cities Covered</p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-surface-dark/60 px-6 py-5">
+                <p className="text-2xl lg:text-3xl font-black text-slate-100">
+                  35k+
+                </p>
+                <p className="text-sm text-slate-400 mt-1">
+                  Requests Processed
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-surface-dark/60 px-6 py-5">
+                <p className="text-2xl lg:text-3xl font-black text-slate-100">
+                  4.8/5
+                </p>
+                <p className="text-sm text-slate-400 mt-1">
+                  User Experience Rating
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* <!-- Category Chips Section --> */}
         <section className="w-full py-16 bg-surface-dark/30 border-y border-slate-800/50">
           <div className="max-w-7xl mx-auto px-6 lg:px-20">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+              <div>
+                <h2 className="text-3xl font-black text-slate-100 mb-2">
+                  Browse by Category
+                </h2>
+                <p className="text-slate-400">
+                  Start with your category and discover nearby products for sale
+                  or rent.
+                </p>
+              </div>
+              <a
+                className="text-primary font-bold inline-flex items-center gap-2 hover:underline"
+                href="#"
+              >
+                View all categories
+                <span className="material-symbols-outlined text-xl">
+                  arrow_right_alt
+                </span>
+              </a>
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               <a
                 className="flex flex-col items-center justify-center p-6 rounded-2xl bg-surface-dark border border-slate-800 hover:border-primary/40 hover:bg-primary/5 transition-all group"
@@ -132,7 +201,9 @@ const LandingPage = () => {
                 href="#"
               >
                 <div className="size-12 rounded-xl bg-slate-800 flex items-center justify-center mb-4 group-hover:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-2xl">chair</span>
+                  <span className="material-symbols-outlined text-2xl">
+                    chair
+                  </span>
                 </div>
                 <span className="text-sm font-bold text-slate-400 group-hover:text-slate-100">
                   Furniture
@@ -143,7 +214,9 @@ const LandingPage = () => {
                 href="#"
               >
                 <div className="size-12 rounded-xl bg-slate-800 flex items-center justify-center mb-4 group-hover:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-2xl">book_2</span>
+                  <span className="material-symbols-outlined text-2xl">
+                    book_2
+                  </span>
                 </div>
                 <span className="text-sm font-bold text-slate-400 group-hover:text-slate-100">
                   Books
@@ -167,7 +240,9 @@ const LandingPage = () => {
                 href="#"
               >
                 <div className="size-12 rounded-xl bg-slate-800 flex items-center justify-center mb-4 group-hover:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-2xl">build</span>
+                  <span className="material-symbols-outlined text-2xl">
+                    build
+                  </span>
                 </div>
                 <span className="text-sm font-bold text-slate-400 group-hover:text-slate-100">
                   Tools
@@ -197,7 +272,7 @@ const LandingPage = () => {
                 Trending Near You
               </h2>
               <p className="text-slate-400">
-                High-demand items with verified lifecycle status.
+                Active local listings across sell and rent modes.
               </p>
             </div>
             <a
@@ -220,7 +295,7 @@ const LandingPage = () => {
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_w_k64yRJOdXBpsjuJY7vC2EPD3nub9AQmiV3AseNtln_2xAgGFYk6dJDe_ByZ4uhP-v6g8FXWcPcg3v_rohHQV4h48FuVHTR6kcaOgDo7MxOeivY73mIzosw0Nu5QGTJEik797TjuWI8AI2cBOQv8RAQlvhLGONmQBzx3DSWHVOmg7gI4XHsVFegao7UUdokTPtdpJhikYhU5F2LmYHDTFKLmPf7GMAwwx8zWZ0ZIZwyNLyDlC6Wg0acig4KmSRPOXQ4qApYdtp"
                 />
                 <div className="absolute top-4 left-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-slate-100 border border-slate-800">
-                  90% Life Left
+                  USED | SELL
                 </div>
                 <button className="absolute top-4 right-4 size-10 rounded-full bg-background-dark/80 backdrop-blur-md text-slate-400 hover:text-primary flex items-center justify-center border border-slate-800 shadow-xl transition-colors">
                   <span className="material-symbols-outlined text-xl">
@@ -240,13 +315,13 @@ const LandingPage = () => {
                   <span className="material-symbols-outlined text-sm">
                     location_on
                   </span>
-                  <span>Brooklyn, NY • 2 miles away</span>
+                  <span>Navrangpura, AMD</span>
                 </div>
                 <div className="mt-2 w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                   <div className="w-[90%] h-full bg-emerald-500"></div>
                 </div>
                 <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest">
-                  Excellent Condition
+                  Used Condition
                 </p>
               </div>
             </div>
@@ -259,7 +334,7 @@ const LandingPage = () => {
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ7P6QNEfVRAMCLGwtL4D01PGVWN_t3axz0OvLcffgbBB4XT1ukQ6yyG_NNXxTZ__VFcN8GO3qZIDyNPIfJzgzuvWtCPoIsfWHW36-kNw8rqZ1hbrOrbxnbi8FauLFuV0pBVRXZKmFhzEMgwz-60h6vTZFtNVVWbBpnbbQGNBTaS3CS_mq29vYrWtfaaCdGbfCWkHhczVe-kawOEpSwAaXOqmBNk558rNAnXowk9RnzzUyElPqGp_E4Er40HI5w-daWH3kxOzUpHl-"
                 />
                 <div className="absolute top-4 left-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-slate-100 border border-slate-800">
-                  98% Life Left
+                  LIKE_NEW | SELL
                 </div>
                 <button className="absolute top-4 right-4 size-10 rounded-full bg-background-dark/80 backdrop-blur-md text-slate-400 hover:text-primary flex items-center justify-center border border-slate-800 shadow-xl transition-colors">
                   <span className="material-symbols-outlined text-xl">
@@ -279,7 +354,7 @@ const LandingPage = () => {
                   <span className="material-symbols-outlined text-sm">
                     location_on
                   </span>
-                  <span>Manhattan, NY • 5 miles away</span>
+                  <span>Maninagar, AMD</span>
                 </div>
                 <div className="mt-2 w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                   <div className="w-[98%] h-full bg-emerald-500"></div>
@@ -298,7 +373,7 @@ const LandingPage = () => {
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuClHhhuyNkNopWR4qsBB_iyxJTDjZjbJVk92YRb2zI3raBOB9XjKlleSWcHU0S8c-t_HXsOwxO7SHKWsVrTZdBsSR7-jE4WirwDPr0fhSn3qTCJL0oHg-501-XwxNIr2uc_Zrn93fmZ8kcFD6Kuvk_TqDpWkybn66uPfr-e_oG_1US6yR5PcaGXa0mdl1FT1M5ovy6lg6GXJlcXQDgp4D8-MEpB0CpiCiLw_eO6Ih07-d7Q50XldWvm4XFuF9rrBuCnXl5xwy6G6LvR"
                 />
                 <div className="absolute top-4 left-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-slate-100 border border-slate-800">
-                  75% Life Left
+                  USED | RENT
                 </div>
                 <button className="absolute top-4 right-4 size-10 rounded-full bg-background-dark/80 backdrop-blur-md text-slate-400 hover:text-primary flex items-center justify-center border border-slate-800 shadow-xl transition-colors">
                   <span className="material-symbols-outlined text-xl">
@@ -318,13 +393,13 @@ const LandingPage = () => {
                   <span className="material-symbols-outlined text-sm">
                     location_on
                   </span>
-                  <span>Queens, NY • 8 miles away</span>
+                  <span>Ellisbridge, AMD</span>
                 </div>
                 <div className="mt-2 w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                   <div className="w-[75%] h-full bg-yellow-500"></div>
                 </div>
                 <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest">
-                  Good Condition
+                  Rental Listing
                 </p>
               </div>
             </div>
@@ -337,7 +412,7 @@ const LandingPage = () => {
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4gG96zQNG9MRdcxxdOL-TDWv5mDzYheKKcfVItBq5TLVEI19x6X7f5bd5_Tdle9-EB8yLhUaKJgyvYSZciqXwIXySeLQzvIY7Xcfe3pdGlN2efD-7mIvFiZCpNx7RV7bH98wbCzGzFuyd3OQogsGzex440zCy1ArQnxQcCbHw__GeWLLneUdmaSvrBQ4kofQsSwYW8eoTPgHEYl_1e8kd1NQtnPi19UqP34tMM2YmwKiY_kqsad0dZ-9W8FVZPba0zLnjf6Ub91mb"
                 />
                 <div className="absolute top-4 left-4 bg-background-dark/80 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-slate-100 border border-slate-800">
-                  85% Life Left
+                  USED | SELL
                 </div>
                 <button className="absolute top-4 right-4 size-10 rounded-full bg-background-dark/80 backdrop-blur-md text-slate-400 hover:text-primary flex items-center justify-center border border-slate-800 shadow-xl transition-colors">
                   <span className="material-symbols-outlined text-xl">
@@ -357,13 +432,13 @@ const LandingPage = () => {
                   <span className="material-symbols-outlined text-sm">
                     location_on
                   </span>
-                  <span>Hoboken, NJ • 12 miles away</span>
+                  <span>Shekhadi, Petlad</span>
                 </div>
                 <div className="mt-2 w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                   <div className="w-[85%] h-full bg-emerald-500"></div>
                 </div>
                 <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest">
-                  Authentic Refurbished
+                  Pre-Owned
                 </p>
               </div>
             </div>
@@ -377,19 +452,21 @@ const LandingPage = () => {
                 How it Works
               </h2>
               <p className="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">
-                Three simple paths to sustainability. Whether you want to
-                declutter, acquire, or swap.
+                Three simple actions for the platform: create listings, send
+                requests, and close sell or rent deals.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               <div className="group flex flex-col items-center text-center p-10 rounded-[2.5rem] bg-background-dark border border-slate-800 hover:border-primary/30 transition-all duration-300">
                 <div className="size-20 rounded-2xl bg-primary/5 text-primary flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                  <span className="material-symbols-outlined text-4xl">sell</span>
+                  <span className="material-symbols-outlined text-4xl">
+                    sell
+                  </span>
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Sell</h3>
                 <p className="text-slate-400 leading-relaxed">
-                  List your quality pre-loved items with verified descriptions
-                  and get fair value directly from your neighbors.
+                  Create a product listing with title, category, condition,
+                  price, location, and images to start receiving requests.
                 </p>
               </div>
               <div className="group flex flex-col items-center text-center p-10 rounded-[2.5rem] bg-background-dark border border-slate-800 hover:border-primary/30 transition-all duration-300">
@@ -400,31 +477,31 @@ const LandingPage = () => {
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Request</h3>
                 <p className="text-slate-400 leading-relaxed">
-                  Can't find what you need? Post a request to the community and
-                  let sellers come to you with their available inventory.
+                  Send a request on a product with your message and offered
+                  price. Sellers can accept, reject, or complete the request.
                 </p>
               </div>
               <div className="group flex flex-col items-center text-center p-10 rounded-[2.5rem] bg-background-dark border border-slate-800 hover:border-primary/30 transition-all duration-300">
                 <div className="size-20 rounded-2xl bg-primary/5 text-primary flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   <span className="material-symbols-outlined text-4xl">
-                    published_with_changes
+                    event_available
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Exchange</h3>
+                <h3 className="text-2xl font-bold mb-4">Rent</h3>
                 <p className="text-slate-400 leading-relaxed">
-                  The heart of our bazar. Swap items of equivalent value with
-                  others to keep the circular economy moving.
+                  For rental-mode products, users can request date ranges while
+                  sellers manage availability and finalize requests.
                 </p>
               </div>
             </div>
           </div>
         </section>
-        {/* <!-- CTA & Local Impact Section --> */}
+        {/* <!-- Trust and Transaction Section --> */}
         <section className="max-w-7xl mx-auto px-6 lg:px-20 py-24 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
               <h2 className="text-5xl lg:text-6xl font-black text-slate-100 leading-[1.1] mb-10">
-                Ready to join the local movement?
+                Built for reliable local transactions
               </h2>
               <ul className="space-y-8 mb-12">
                 <li className="flex items-start gap-5">
@@ -435,11 +512,11 @@ const LandingPage = () => {
                   </div>
                   <div>
                     <p className="font-bold text-xl text-slate-100 mb-1">
-                      Verified Users Only
+                      Verified Account Activity
                     </p>
                     <p className="text-slate-400 leading-relaxed">
-                      Every member is identity-checked for maximum safety and
-                      trust in every transaction.
+                      Listings, requests, and product actions are tied to user
+                      accounts for clear ownership and safer interactions.
                     </p>
                   </div>
                 </li>
@@ -451,11 +528,11 @@ const LandingPage = () => {
                   </div>
                   <div>
                     <p className="font-bold text-xl text-slate-100 mb-1">
-                      Reduce Footprint
+                      Local Discovery by City
                     </p>
                     <p className="text-slate-400 leading-relaxed">
-                      Lower your environmental impact by giving goods a second
-                      life within your own community.
+                      Buyers can discover products by city and category to make
+                      local meetups and handovers practical.
                     </p>
                   </div>
                 </li>
@@ -467,55 +544,74 @@ const LandingPage = () => {
                   </div>
                   <div>
                     <p className="font-bold text-xl text-slate-100 mb-1">
-                      Escrow Payments
+                      End-to-End Request Lifecycle
                     </p>
                     <p className="text-slate-400 leading-relaxed">
-                      Funds are held securely until the exchange is verified by
-                      both parties, ensuring peace of mind.
+                      Move from pending to accepted, rejected, cancelled, or
+                      completed with status-driven updates and notifications.
                     </p>
                   </div>
                 </li>
               </ul>
               <div className="flex flex-col sm:flex-row gap-5">
-                <button className="px-10 py-5 rounded-2xl bg-primary text-white font-bold text-lg hover:shadow-2xl hover:shadow-primary/30 transition-all">
+                <a
+                  href="/signup"
+                  className="px-10 py-5 rounded-2xl bg-primary text-white font-bold text-lg hover:shadow-2xl hover:shadow-primary/30 transition-all"
+                >
                   Get Started Today
-                </button>
-                <button className="px-10 py-5 rounded-2xl bg-surface-dark text-slate-100 font-bold text-lg border border-slate-800 hover:bg-slate-800 transition-all">
-                  Download App
-                </button>
+                </a>
+                <a
+                  href="/login"
+                  className="px-10 py-5 rounded-2xl bg-surface-dark text-slate-100 font-bold text-lg border border-slate-800 hover:bg-slate-800 transition-all"
+                >
+                  Explore Products
+                </a>
               </div>
             </div>
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-linear-to-r from-primary/20 to-purple-500/20 rounded-[2.5rem] blur-2xl opacity-50"></div>
-              <div className="relative rounded-[2.5rem] overflow-hidden border border-slate-800 shadow-2xl h-500px lg:h-650px bg-surface-dark">
-                <img
-                  className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-1000"
-                  data-alt="Stylized dark map of New York City streets"
-                  data-location="New York City"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHbln1og4A-t1-3kaTWT7_rUoTzUXoZavoRkVjUsbERbCOmvMPSDmILe4ETisL7fLSAwxlVLGY3Ffrd0HjElSPX8LD2yrAza8csqUdn3KhUcpq4cCcR4X1-ZaCoKrlWXXLja2ZTr9Wx0dlidpSye8OlovR8pL0g9ftd7Cytiw-Mh2Xt_D2IvyKyeBdA5m0NeFU4PhV9IBDSzpk-sjVMqPinY4K9kf4CqN09ORa_WgdFKgoubQYasbJ5hfecMhLbwOthAMtghcj1Yo_"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-background-dark via-background-dark/20 to-transparent"></div>
-                <div className="absolute bottom-8 left-8 right-8 p-8 bg-background-dark/80 backdrop-blur-2xl rounded-3xl border border-slate-800/50 shadow-2xl">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="size-3 rounded-full bg-primary relative">
-                      <div className="absolute inset-0 rounded-full bg-primary animate-ping"></div>
-                    </div>
-                    <p className="text-base font-bold text-slate-100 tracking-tight">
-                      248 active exchanges right now in NYC
+            <div className="rounded-[2.5rem] border border-slate-800 bg-surface-dark p-8 lg:p-10">
+              <h3 className="text-2xl font-black text-slate-100 mb-8">
+                How a deal closes
+              </h3>
+              <div className="space-y-5">
+                <div className="rounded-2xl border border-slate-800 bg-background-dark px-5 py-4 flex items-start gap-4">
+                  <div className="size-8 rounded-full bg-primary/15 text-primary font-bold flex items-center justify-center shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-100">
+                      List or discover a product
+                    </p>
+                    <p className="text-sm text-slate-400 mt-1">
+                      Seller publishes product details. Buyer explores by
+                      category, city, and condition.
                     </p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex -space-x-3">
-                      <div className="size-10 rounded-full border-2 border-background-dark bg-slate-700"></div>
-                      <div className="size-10 rounded-full border-2 border-background-dark bg-slate-600"></div>
-                      <div className="size-10 rounded-full border-2 border-background-dark bg-slate-500"></div>
-                      <div className="size-10 rounded-full border-2 border-background-dark bg-slate-400"></div>
-                      <div className="size-10 rounded-full border-2 border-background-dark bg-primary flex items-center justify-center text-[10px] font-bold text-white">
-                        +1.2k
-                      </div>
-                    </div>
-                    <p className="text-sm text-slate-400 font-medium italic">
-                      Join the movement
+                </div>
+                <div className="rounded-2xl border border-slate-800 bg-background-dark px-5 py-4 flex items-start gap-4">
+                  <div className="size-8 rounded-full bg-primary/15 text-primary font-bold flex items-center justify-center shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-100">
+                      Send request and negotiate
+                    </p>
+                    <p className="text-sm text-slate-400 mt-1">
+                      Buyer sends message and offered price. Seller reviews and
+                      updates request status.
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-2xl border border-slate-800 bg-background-dark px-5 py-4 flex items-start gap-4">
+                  <div className="size-8 rounded-full bg-primary/15 text-primary font-bold flex items-center justify-center shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-100">
+                      Finalize the transaction
+                    </p>
+                    <p className="text-sm text-slate-400 mt-1">
+                      Complete sell or rent flow and keep users informed with
+                      notification updates.
                     </p>
                   </div>
                 </div>
@@ -539,8 +635,8 @@ const LandingPage = () => {
                   </h2>
                 </div>
                 <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
-                  The world's most trusted marketplace for pre-loved quality
-                  goods. Join our mission to build a more sustainable future.
+                  Local marketplace for second-hand product listings with sell,
+                  rent, request, favorite, and reporting workflows.
                 </p>
                 <div className="flex gap-4">
                   <a
@@ -575,23 +671,35 @@ const LandingPage = () => {
                 </h4>
                 <ul className="space-y-4 text-sm text-slate-400">
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <a
+                      className="hover:text-primary transition-colors"
+                      href="#"
+                    >
                       How it Works
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <a
+                      className="hover:text-primary transition-colors"
+                      href="#"
+                    >
                       Trust &amp; Safety
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
-                      Exchange Policy
+                    <a
+                      className="hover:text-primary transition-colors"
+                      href="#"
+                    >
+                      Request Workflow
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
-                      Pricing
+                    <a
+                      className="hover:text-primary transition-colors"
+                      href="#"
+                    >
+                      Sell and Rent Modes
                     </a>
                   </li>
                 </ul>
@@ -602,22 +710,34 @@ const LandingPage = () => {
                 </h4>
                 <ul className="space-y-4 text-sm text-slate-400">
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <a
+                      className="hover:text-primary transition-colors"
+                      href="#"
+                    >
                       Forum
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <a
+                      className="hover:text-primary transition-colors"
+                      href="#"
+                    >
                       Local Events
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <a
+                      className="hover:text-primary transition-colors"
+                      href="#"
+                    >
                       Sustainability Blog
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <a
+                      className="hover:text-primary transition-colors"
+                      href="#"
+                    >
                       Impact Reports
                     </a>
                   </li>
@@ -628,8 +748,8 @@ const LandingPage = () => {
                   Newsletter
                 </h4>
                 <p className="text-sm text-slate-400 mb-8 leading-relaxed">
-                  Stay updated with the latest drops near you and sustainable
-                  living tips.
+                  Stay updated with fresh listings near you and important
+                  request updates.
                 </p>
                 <div className="flex flex-col gap-3">
                   <input
@@ -644,7 +764,10 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="pt-10 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-slate-500">
-              <p>© 2024 SecondHand Bazar Inc. All rights reserved.</p>
+              <p>
+                © {new Date().getFullYear()} SecondHand Bazar Inc. All rights
+                reserved.
+              </p>
               <div className="flex gap-10">
                 <a className="hover:text-slate-100 transition-colors" href="#">
                   Privacy Policy
